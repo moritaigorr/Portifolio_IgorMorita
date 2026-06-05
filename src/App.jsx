@@ -5,7 +5,7 @@ import { Contact } from './components/Contact.jsx'
 import { Header } from './components/Header.jsx'
 import { AboutPage } from './pages/AboutPage.jsx'
 import { HomePage } from './pages/HomePage.jsx'
-import { SkillsPage } from './pages/SkillsPage.jsx'
+import { ProjectPage } from './pages/ProjectPage.jsx'
 
 export default function App() {
   useSmoothScroll()
@@ -28,8 +28,8 @@ export default function App() {
           />
           <Route path="/sobre" element={<AboutPage about={portfolio.about} />} />
           <Route
-            path="/skills"
-            element={<SkillsPage skills={portfolio.skills} />}
+            path="/projetos/:slug"
+            element={<ProjectPage projects={portfolio.projects} />}
           />
         </Routes>
       </main>
