@@ -59,7 +59,7 @@ export const portfolio = {
       story:
         'O projeto nasceu da necessidade de transformar dados soltos em uma leitura visual simples. A proposta foi criar uma tela que ajudasse a entender o desempenho financeiro rapidamente, sem depender de planilhas longas ou navegacao confusa.',
       thinking:
-        'Minha linha de pensamento foi priorizar clareza: primeiro destacar os indicadores principais, depois organizar os graficos e filtros para que o usuario conseguisse explorar os dados sem perder contexto.',
+        'Minha linha de pensamento foi priorizar clareza: primeiro destacar os indicadores principais, depois organizar os graficos e filtros para que o usuario conseguisse explorar os dados sem se perder.',
       description:
         'Painel responsivo com graficos, cards de metricas e filtros para acompanhar resultados em tempo real.',
       tags: ['React', 'CSS Grid', 'Charts'],
