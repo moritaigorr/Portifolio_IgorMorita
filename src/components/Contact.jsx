@@ -1,27 +1,27 @@
-export function Contact({ contact }) {
-  const footerLinks = contact.links.filter((link) => link.label !== 'Curriculo')
-  const resumeLink = contact.links.find((link) => link.label === 'Curriculo')
+export function Contact({ contact, ui }) {
+  const footerLinks = contact.links.filter((link) => link.type !== 'resume')
+  const resumeLink = contact.links.find((link) => link.type === 'resume')
   const emailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contact.email)}`
   const navigationLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'About', href: '/sobre' },
-    { label: 'Resume', href: resumeLink?.href || '#' },
+    { label: ui.home, href: '/' },
+    { label: ui.about, href: '/sobre' },
+    { label: ui.resume, href: resumeLink?.href || '#' },
   ]
 
   return (
     <footer className="site-footer" id="contato">
       <div className="footer-inner reveal">
         <div className="footer-copy">
-          <h2>Estou feliz que voce chegou ate aqui.</h2>
-          <p>Espero que meu portfolio tenha deixado um pouco de curiosidade e inspiracao.</p>
+          <h2>{ui.footerTitle}</h2>
+          <p>{ui.footerText}</p>
           <small>© Igor Morita Silva, 2026</small>
         </div>
 
         <div className="footer-columns">
           <div className="footer-column">
-            <h3>Contact</h3>
+            <h3>{ui.contact}</h3>
             <a className="email-link" href={emailHref} rel="noreferrer" target="_blank">
-              Email
+              E-mail
             </a>
             {footerLinks.map((link) => (
               <a href={link.href} key={link.label} rel="noreferrer" target="_blank">
@@ -31,7 +31,7 @@ export function Contact({ contact }) {
           </div>
 
           <div className="footer-column">
-            <h3>Navigation</h3>
+            <h3>{ui.navigation}</h3>
             {navigationLinks.map((link) => (
               <a href={link.href} key={link.label}>
                 {link.label}

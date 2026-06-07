@@ -1,41 +1,81 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import { portfolio } from './data/portfolio.js'
+import { portfolios } from './data/portfolio.js'
+import { ClickSpark } from './components/ClickSpark.jsx'
 import { Contact } from './components/Contact.jsx'
+import { CustomCursor } from './components/CustomCursor.jsx'
 import { Header } from './components/Header.jsx'
 import { AboutPage } from './pages/AboutPage.jsx'
 import { HomePage } from './pages/HomePage.jsx'
 import { ProjectPage } from './pages/ProjectPage.jsx'
 
 export default function App() {
+  const [locale, setLocale] = useState(() => getInitialLocale())
+  const portfolio = portfolios[locale]
+
   useSmoothScroll()
   useScrollToTop()
 
+  useEffect(() => {
+    document.documentElement.lang = locale === 'pt' ? 'pt-BR' : 'en-US'
+    window.localStorage.setItem('locale', locale)
+  }, [locale])
+
   return (
-    <div className="app-shell">
-      <Header contact={portfolio.contact} navigation={portfolio.navigation} />
-      <main>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <HomePage
-                profile={portfolio.profile}
-                projects={portfolio.projects}
-                stats={portfolio.stats}
-              />
-            }
-          />
-          <Route path="/sobre" element={<AboutPage about={portfolio.about} />} />
-          <Route
-            path="/projetos/:slug"
-            element={<ProjectPage projects={portfolio.projects} />}
-          />
-        </Routes>
-      </main>
-      <Contact profile={portfolio.profile} contact={portfolio.contact} />
-    </div>
+    <ClickSpark
+      sparkColor="currentColor"
+      sparkSize={10}
+      sparkRadius={15}
+      sparkCount={8}
+      duration={400}
+    >
+      <CustomCursor />
+      <div className="app-shell">
+        <Header
+          contact={portfolio.contact}
+          locale={locale}
+          navigation={portfolio.navigation}
+          onLocaleChange={setLocale}
+          ui={portfolio.ui}
+        />
+        <main>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <HomePage
+                  profile={portfolio.profile}
+                  projects={portfolio.projects}
+                  stats={portfolio.stats}
+                  ui={portfolio.ui}
+                />
+              }
+            />
+            <Route path="/sobre" element={<AboutPage about={portfolio.about} />} />
+            <Route
+              path="/projetos/:slug"
+              element={<ProjectPage projects={portfolio.projects} ui={portfolio.ui} />}
+            />
+          </Routes>
+        </main>
+        <Contact contact={portfolio.contact} ui={portfolio.ui} />
+      </div>
+    </ClickSpark>
   )
+}
+
+function getInitialLocale() {
+  if (typeof window === 'undefined') {
+    return 'pt'
+  }
+
+  const savedLocale = window.localStorage.getItem('locale')
+
+  if (savedLocale === 'pt' || savedLocale === 'en') {
+    return savedLocale
+  }
+
+  return 'pt'
 }
 
 function useScrollToTop() {
