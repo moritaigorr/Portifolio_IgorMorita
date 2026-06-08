@@ -3,8 +3,8 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import { portfolios } from './data/portfolio.js'
 import { ClickSpark } from './components/ClickSpark.jsx'
 import { Contact } from './components/Contact.jsx'
-import { CustomCursor } from './components/CustomCursor.jsx'
 import { Header } from './components/Header.jsx'
+import { LibraryCursor } from './components/LibraryCursor.jsx'
 import { AboutPage } from './pages/AboutPage.jsx'
 import { HomePage } from './pages/HomePage.jsx'
 import { ProjectPage } from './pages/ProjectPage.jsx'
@@ -29,7 +29,26 @@ export default function App() {
       sparkCount={8}
       duration={400}
     >
-      <CustomCursor />
+      <LibraryCursor
+        customClass="custom-cursor"
+        dimensions={30}
+        fill="#ffffff"
+        smoothness={{
+          movement: 0.2,
+          opacity: 0.2,
+          scale: 0.1,
+        }}
+        targetOpacity={1}
+        targetScale={1.45}
+        targets={[
+          'a',
+          'button',
+          '.project-card',
+          '.theme-toggle',
+          '.language-toggle',
+          '.hero-subtitle-accent',
+        ]}
+      />
       <div className="app-shell">
         <Header
           contact={portfolio.contact}

@@ -9,11 +9,10 @@ export function Header({ contact, locale, navigation, onLocaleChange, ui }) {
     <header className="site-header">
       <Link className="brand" to="/" aria-label={locale === 'pt' ? 'Ir para o início' : 'Go to home'}>
         <span className="brand-logo-stage" aria-hidden="true">
-          <img className="brand-logo brand-logo-layer brand-logo-layer-4" src={logoMorita} alt="" />
-          <img className="brand-logo brand-logo-layer brand-logo-layer-3" src={logoMorita} alt="" />
-          <img className="brand-logo brand-logo-layer brand-logo-layer-2" src={logoMorita} alt="" />
-          <img className="brand-logo brand-logo-layer brand-logo-layer-1" src={logoMorita} alt="" />
-          <img className="brand-logo brand-logo-front" src={logoMorita} alt="" />
+          <img className="brand-logo brand-logo-depth brand-logo-depth-3" src={logoMorita} alt="" />
+          <img className="brand-logo brand-logo-depth brand-logo-depth-2" src={logoMorita} alt="" />
+          <img className="brand-logo brand-logo-depth brand-logo-depth-1" src={logoMorita} alt="" />
+          <img className="brand-logo brand-logo-face" src={logoMorita} alt="" />
         </span>
       </Link>
 

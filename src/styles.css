@@ -93,102 +93,29 @@ a {
 }
 
 .custom-cursor {
+  mix-blend-mode: difference;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.38));
+}
+
+.library-cursor {
   position: fixed;
   z-index: 100000;
   top: 0;
   left: 0;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
-  transition: opacity 160ms ease;
-}
-
-.custom-cursor-ring,
-.custom-cursor-dot {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
+  display: none;
+  width: var(--library-cursor-size);
+  height: var(--library-cursor-size);
   border-radius: 999px;
+  background: var(--library-cursor-fill);
   pointer-events: none;
-  transform: translate(-50%, -50%);
+  will-change: opacity, transform;
 }
 
-.custom-cursor-ring {
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(20, 20, 23, 0.7);
-  background:
-    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.45), transparent 32%),
-    linear-gradient(135deg, rgba(6, 6, 8, 0.12), rgba(255, 255, 255, 0.16));
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.32),
-    0 8px 28px rgba(10, 10, 12, 0.18);
-  transition:
-    border-color 180ms ease,
-    border-radius 180ms ease,
-    height 180ms ease,
-    transform 180ms ease,
-    width 180ms ease;
-}
+@media (any-pointer: fine) {
+  .library-cursor {
+    display: block;
+  }
 
-.custom-cursor-dot {
-  width: 6px;
-  height: 6px;
-  background: #111113;
-  box-shadow: 0 0 10px rgba(15, 15, 17, 0.28);
-  transition:
-    background 180ms ease,
-    height 180ms ease,
-    transform 180ms ease,
-    width 180ms ease;
-}
-
-.custom-cursor-hidden {
-  opacity: 0;
-}
-
-.custom-cursor-active .custom-cursor-ring {
-  width: 54px;
-  height: 54px;
-  border-color: rgba(240, 100, 69, 0.78);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.36),
-    0 0 24px rgba(240, 100, 69, 0.22);
-}
-
-.custom-cursor-active .custom-cursor-dot {
-  width: 4px;
-  height: 4px;
-  background: #f06445;
-}
-
-.custom-cursor-text .custom-cursor-ring {
-  width: 18px;
-  height: 42px;
-  border-radius: 999px;
-}
-
-.custom-cursor-pressed .custom-cursor-ring {
-  transform: translate(-50%, -50%) scale(0.74);
-}
-
-:root[data-theme="dark"] .custom-cursor-ring {
-  border-color: rgba(245, 245, 240, 0.72);
-  background:
-    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.52), transparent 32%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(80, 80, 86, 0.2));
-  box-shadow:
-    0 0 0 1px rgba(20, 20, 20, 0.45),
-    0 8px 28px rgba(0, 0, 0, 0.28);
-}
-
-:root[data-theme="dark"] .custom-cursor-dot {
-  background: #f7f7f4;
-  box-shadow: 0 0 12px rgba(247, 247, 244, 0.28);
-}
-
-@media (pointer: fine) {
   body,
   a,
   button,
@@ -196,6 +123,13 @@ a {
   textarea,
   select,
   [role="button"] {
+    cursor: none;
+  }
+
+  .theme-toggle,
+  .language-toggle,
+  .theme-toggle *,
+  .language-toggle * {
     cursor: none;
   }
 }
@@ -225,8 +159,8 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 70px;
-  height: 52px;
+  width: 92px;
+  height: 68px;
   perspective: 980px;
 }
 
@@ -235,25 +169,11 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 70px;
-  height: 52px;
+  width: 92px;
+  height: 68px;
   transform-style: preserve-3d;
   animation: brand-logo-spin 5.6s linear infinite;
   will-change: transform;
-}
-
-.brand-logo-stage::after {
-  position: absolute;
-  right: 8px;
-  bottom: 1px;
-  left: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(15, 15, 16, 0.28);
-  content: "";
-  filter: blur(8px);
-  transform: translateZ(-26px) rotateX(72deg);
-  animation: brand-logo-shadow 5.6s linear infinite;
 }
 
 .brand-logo {
@@ -262,61 +182,61 @@ a {
   left: 50%;
   display: block;
   width: auto;
-  height: 50px;
+  height: 66px;
   object-fit: contain;
   filter:
-    grayscale(1)
-    brightness(0.18)
-    contrast(3)
-    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.32))
-    drop-shadow(0 10px 15px rgba(0, 0, 0, 0.42));
+    sepia(1)
+    saturate(3.1)
+    hue-rotate(178deg)
+    brightness(0.72)
+    contrast(1.62);
   transform-origin: center;
-  transform-style: preserve-3d;
   transition: filter 520ms ease;
   backface-visibility: visible;
 }
 
-.brand-logo-front {
-  transform: translate(-50%, -50%) translateZ(12px);
+.brand-logo-face {
+  transform: translate3d(-50%, -50%, 12px);
 }
 
-.brand-logo-layer {
-  opacity: 0.7;
+.brand-logo-depth {
+  opacity: 0.94;
   filter:
-    grayscale(1)
-    brightness(0.07)
-    contrast(2.5)
-    drop-shadow(0 0 1px rgba(255, 255, 255, 0.18));
+    sepia(1)
+    saturate(3.1)
+    hue-rotate(178deg)
+    brightness(0.58)
+    contrast(1.62);
 }
 
-.brand-logo-layer-1 {
-  transform: translate(-50%, -50%) translateZ(6px);
+.brand-logo-depth-1 {
+  transform: translate3d(calc(-50% + 3px), calc(-50% + 2px), 4px);
 }
 
-.brand-logo-layer-2 {
-  transform: translate(-50%, -50%) translateZ(0);
+.brand-logo-depth-2 {
+  transform: translate3d(calc(-50% + 6px), calc(-50% + 4px), -4px);
 }
 
-.brand-logo-layer-3 {
-  transform: translate(-50%, -50%) translateZ(-6px);
-}
-
-.brand-logo-layer-4 {
-  transform: translate(-50%, -50%) translateZ(-12px);
+.brand-logo-depth-3 {
+  transform: translate3d(calc(-50% + 9px), calc(-50% + 6px), -12px);
 }
 
 :root[data-theme="dark"] .brand-logo {
   filter:
-    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.3))
-    drop-shadow(0 8px 14px rgba(0, 0, 0, 0.38));
+    sepia(1)
+    saturate(2.6)
+    hue-rotate(356deg)
+    brightness(1.14)
+    contrast(1.12);
 }
 
-:root[data-theme="dark"] .brand-logo-layer {
-  opacity: 0.62;
+:root[data-theme="dark"] .brand-logo-depth {
   filter:
-    brightness(0.42)
-    contrast(1.5)
-    drop-shadow(0 0 1px rgba(255, 255, 255, 0.2));
+    sepia(1)
+    saturate(2)
+    hue-rotate(356deg)
+    brightness(0.54)
+    contrast(1.45);
 }
 
 @keyframes brand-logo-spin {
@@ -338,21 +258,6 @@ a {
 
   100% {
     transform: rotateX(0deg) rotateY(360deg);
-  }
-}
-
-@keyframes brand-logo-shadow {
-  0%,
-  50%,
-  100% {
-    opacity: 0.34;
-    transform: translateZ(-26px) rotateX(72deg) scaleX(1);
-  }
-
-  24%,
-  74% {
-    opacity: 0.16;
-    transform: translateZ(-26px) rotateX(72deg) scaleX(0.42);
   }
 }
 
@@ -411,7 +316,6 @@ a {
   border-radius: 999px;
   background: var(--surface);
   color: var(--text);
-  cursor: pointer;
   transition:
     border-color 180ms ease,
     background 180ms ease,
@@ -428,7 +332,6 @@ a {
   border-radius: 999px;
   background: var(--surface);
   color: var(--muted);
-  cursor: pointer;
   font-size: 0.72rem;
   font-weight: 850;
   letter-spacing: 0.04em;
@@ -1277,9 +1180,6 @@ a {
     animation: brand-logo-spin 5.6s linear infinite !important;
   }
 
-  .brand-logo-stage::after {
-    animation: brand-logo-shadow 5.6s linear infinite !important;
-  }
 }
 
 @media (max-width: 880px) {
